@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login Redirect - Balfour Beatty App</title>
+</head>
+<body>
+<script>
+  const cognitoDomain = "https://eu-north-1nri84sfoc.auth.eu-north-1.amazoncognito.com";
+  const clientId = "74tcnf9cl9lgjvam3j60hv09vd";
+  const redirectUri = "http://localhost:5500/index.html";
+
+  const loginUrl = "https://eu-north-1nri84sfoc.auth.eu-north-1.amazoncognito.com/login?client_id=74tcnf9cl9lgjvam3j60hv09vd&response_type=code&scope=openid+email&redirect_uri=" + encodeURIComponent("http://localhost:5500/index.html");
+
+  window.location.href = loginUrl;
+</script>
+</body>

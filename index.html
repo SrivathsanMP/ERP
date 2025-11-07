@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Balfour Beatty App</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f7f8fa;
+      overflow-x: hidden;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background-color: #004080;
+      color: white;
+      position: relative;
+      z-index: 3;
+    }
+
+    .header-left, .header-center, .header-right {
+      display: flex;
+      align-items: center;
+    }
+
+    .header-center {
+      flex: 1;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: bold;
+      gap: 10px;
+    }
+
+    .header-center img {
+      height: 40px;
+      width: auto;
+    }
+
+    .menu-btn {
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 26px;
+      cursor: pointer;
+      margin-right: 15px;
+      position: relative;
+      z-index: 4;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 250px;
+      height: 100%;
+      background-color: #002b5c;
+      color: white;
+      transition: left 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      z-index: 2;
+    }
+    .sidebar.active { left: 0; }
+
+    .profile-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+    .profile-pic {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background-color: white;
+      overflow: hidden;
+    }
+    .profile-name { margin-top: 10px; font-size: 16px; font-weight: bold; }
+    .profile-role { font-size: 14px; color: #c0c0c0; }
+
+    .sidebar-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      flex-grow: 1;
+      justify-content: center;
+      width: 100%;
+      align-items: center;
+    }
+
+    .sidebar button {
+      width: 70%;
+      padding: 12px;
+      background-color: #004080;
+      border: none;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .sidebar button:hover { background-color: #0059b3; }
+
+    .logout-section { margin-bottom: 20px; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-left">
+      <button id="menuBtn" class="menu-btn">☰</button>
+      <span id="greeting">HI ! Guest</span>
+    </div>
+
+    <div class="header-center">
+      <img src="https://via.placeholder.com/80" alt="Logo">
+      <span>Balfour Beatty</span>
+    </div>
+
+    <div class="header-right">
+      <a href="#">HOME</a>
+      <a href="#">PROFILE</a>
+    </div>
+  </header>
+
+  <div class="sidebar" id="sidebar">
+    <div class="profile-section">
+      <div class="profile-pic">
+        <img src="https://via.placeholder.com/80" alt="User">
+      </div>
+      <div class="profile-name" id="profileName">User</div>
+      <div class="profile-role" id="profileRole">Engineer</div>
+    </div>
+
+    <div class="sidebar-buttons">
+      <button>Send Proposal</button>
+      <button>Notifications</button>
+      <button>History</button>
+    </div>
+
+    <div class="logout-section">
+      <button id="logoutBtn">Logout</button>
+    </div>
+  </div>
+
+  <script>
+  // Sidebar toggle
+  const sidebar = document.getElementById("sidebar");
+  const menuBtn = document.getElementById("menuBtn");
+  menuBtn.onclick = () => sidebar.classList.toggle("active");
+
+  // Cognito setup (values filled)
+  const cognitoDomain = "https://eu-north-1nri84sfoc.auth.eu-north-1.amazoncognito.com";
+  const clientId = "74tcnf9cl9lgjvam3j60hv09vd";
+  const redirectUri = "http://localhost:5500/index.html";
+  const logoutRedirectUri = "http://localhost:5500/login.html";
+
+  // Exchange authorization code for tokens
+  async function exchangeCodeForToken(code) {
+    const tokenUrl = "https://eu-north-1nri84sfoc.auth.eu-north-1.amazoncognito.com/oauth2/token";
+    const body = "grant_type=authorization_code&client_id=74tcnf9cl9lgjvam3j60hv09vd&code=" + code + "&redirect_uri=" + encodeURIComponent("http://localhost:5500/index.html");
+  
+
+    const response = await fetch(tokenUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body
+    });
+
+    if (!response.ok) throw new Error("Token exchange failed");
+    const data = await response.json();
+    return data.id_token;
+  }
+
+  // Decode JWT
+  function decodeJwt(token) {
+    const payload = token.split('.')[1];
+    return JSON.parse(atob(payload));
+  }
+
+  // Logout handler — fully expanded logout URL (placeholders filled)
+  const logoutBtn = document.getElementById("logoutBtn");
+  logoutBtn.onclick = () => {
+    localStorage.removeItem("id_token");
+    // Expanded/logout URL with all placeholders substituted:
+    const logoutUrl = "https://eu-north-1nri84sfoc.auth.eu-north-1.amazoncognito.com/logout?client_id=74tcnf9cl9lgjvam3j60hv09vd&logout_uri=http%3A%2F%2Flocalhost%3A5500%2Flogin.html";
+    window.location.href = logoutUrl;
+  };
+
+  // On page load
+  window.onload = async () => {
+    let token = localStorage.getItem("id_token");
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get("code");
+
+    if (!token && code) {
+      try {
+        token = await exchangeCodeForToken(code);
+        localStorage.setItem("id_token", token);
+        window.history.replaceState({}, document.title, redirectUri); // clean URL
+      } catch (err) {
+        console.error("Token exchange failed:", err);
+        window.location.href = "login.html";
+        return;
+      }
+    }
+
+    if (!token) {
+      window.location.href = "login.html";
+      return;
+    }
+
+    const payload = decodeJwt(token);
+    const email = payload.email || payload["cognito:username"];
+    const greetingEl = document.getElementById("greeting");
+    const profileNameEl = document.getElementById("profileName");
+    if (greetingEl) greetingEl.textContent = `HI ! ${email}`;
+    if (profileNameEl) profileNameEl.textContent = email;
+  };
+</script>
