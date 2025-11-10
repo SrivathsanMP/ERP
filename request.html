@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Project Request</title>
+  <style>
+    :root{
+      --blue: #0056b3;
+      --blue-dark: #003d80;
+      --text: #0b2540;
+      --muted: #6b7a8a;
+      --bg: #ffffff;
+      --gap: 24px;
+      --label-w: 180px;
+    }
+
+    html,body{
+      height:100%;
+      margin:0;
+      background:var(--bg);
+      font-family: "Segoe UI", Roboto, Arial, sans-serif;
+      color:var(--text);
+    }
+
+    header{
+      background:var(--blue);
+      color:white;
+      padding:12px 20px;
+      font-weight:600;
+      font-size:15px;
+    }
+
+    .page {
+      display:flex;
+      height: calc(100% - 48px);
+    }
+
+    .pane {
+      flex: 1;
+      padding: 36px;
+      box-sizing: border-box;
+      overflow: auto;
+    }
+
+    .left { border-right: 1px solid #eef1f4; }
+    .right { background:#ffffff; }
+
+    form {
+      display: flex;
+      height: 100%;
+    }
+
+    .left-col, .right-col {
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+      min-width:0;
+    }
+
+    .field-row {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:0;
+    }
+
+    .field-row label {
+      width: var(--label-w);
+      font-weight:600;
+      color:#07314d;
+      font-size:14px;
+      white-space:nowrap;
+    }
+
+    .field-row input {
+      flex:1;
+      min-width:0;
+      padding:8px 10px;
+      border:1px solid #c7cfd8;
+      border-radius:4px;
+      font-size:14px;
+      color: var(--text);
+      background:white;
+    }
+
+    .stack {
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      min-width:0;
+    }
+
+    .stack label {
+      display:block;
+      font-weight:600;
+      color:#07314d;
+      margin-bottom:6px;
+      font-size:14px;
+    }
+
+    .stack textarea {
+      width:100%;
+      min-height:110px;
+      padding:10px;
+      border:1px solid #c7cfd8;
+      border-radius:4px;
+      resize:vertical;
+      font-size:14px;
+      color:var(--text);
+      box-sizing:border-box;
+    }
+
+    .file-row {
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .file-row label {
+      width: var(--label-w);
+      margin:0;
+      font-weight:600;
+      color:#07314d;
+      font-size:14px;
+    }
+
+    .file-row input[type="file"] {
+      padding:6px 8px;
+      font-size:13px;
+      border:1px solid #c7cfd8;
+      border-radius:4px;
+      background:white;
+    }
+
+    .submit-btn {
+      position: fixed;
+      right:16px;
+      bottom:16px;
+      background: var(--blue);
+      color:white;
+      border:none;
+      padding:8px 14px;
+      font-size:13px;
+      border-radius:4px;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+    }
+
+    .submit-btn:hover { background: var(--blue-dark); }
+
+    @media (max-width:1440px){
+      .left-col, .right-col { padding:0; }
+      label { width:150px; }
+      textarea { height:90px; }
+    }
+
+    @media (max-width:1366px){
+      label { width:140px; }
+      textarea { height:80px; }
+    }
+
+  </style>
+</head>
+<body>
+  <header>Project Request Form</header>
+
+  <form id="projectForm" class="page" onsubmit="return false;">
+    <!-- LEFT HALF -->
+    <div class="pane left">
+      <div class="left-col">
+        <div class="field-row">
+          <label for="projectName">Project name</label>
+          <input id="projectName" name="projectName" type="text" required />
+        </div>
+        <div class="field-row">
+          <label for="proNumber">Pro number</label>
+          <input id="proNumber" name="proNumber" type="text" />
+        </div><br>
+        <div class="field-row">
+          <label for="clientName">Client name</label>
+          <input id="clientName" name="clientName" type="text" />
+        </div><br>
+        <div class="field-row">
+          <label for="taskCode">Task code</label>
+          <input id="taskCode" name="taskCode" type="text" />
+        </div><br>
+        <div class="field-row">
+          <label for="twRef">TW Reg. Ref. No.</label>
+          <input id="twRef" name="twRef" type="text" />
+        </div><br>
+        <div class="field-row">
+          <label for="location">Location</label>
+          <input id="location" name="location" type="text" />
+        </div><br>
+        <div class="field-row">
+          <label for="siteContactName">Site contact name</label>
+          <input id="siteContactName" name="siteContactName" type="text" />
+        </div>
+        <div class="field-row">
+          <label for="siteContactNo">Site contact no</label>
+          <input id="siteContactNo" name="siteContactNo" type="text" />
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT HALF -->
+    <div class="pane right">
+      <div class="right-col">
+        <div class="stack">
+          <div>
+            <label for="purpose">Purpose</label>
+            <textarea id="purpose" name="purpose" placeholder="Describe the purpose..."></textarea>
+          </div>
+          <div>
+            <label for="scope">Scope</label>
+            <textarea id="scope" name="scope" placeholder="Describe the scope..."></textarea>
+          </div>
+          <div>
+            <label for="deliverables">Deliverables</label>
+            <textarea id="deliverables" name="deliverables" placeholder="List expected deliverables..."></textarea>
+          </div><br>
+          <div class="file-row">
+            <label for="documentation">Document upload</label>
+            <input id="documentation" name="documentation" type="file" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <button class="submit-btn" id="submitBtn" title="Submit">
+    Submit
+  </button>
+
+  <script>
+    document.getElementById('submitBtn').addEventListener('click', () => {
+      const form = document.getElementById('projectForm');
+      const data = new FormData(form);
+
+      const payload = {
+        projectName: data.get('projectName') || '',
+        proNumber: data.get('proNumber') || '',
+        clientName: data.get('clientName') || '',
+        taskCode: data.get('taskCode') || '',
+        twRef: data.get('twRef') || '',
+        location: data.get('location') || '',
+        siteContactName: data.get('siteContactName') || '',
+        siteContactNo: data.get('siteContactNo') || '',
+        purpose: data.get('purpose') || '',
+        scope: data.get('scope') || '',
+        deliverables: data.get('deliverables') || ''
+      };
+
+      console.log('submit payload:', payload);
+      alert('Form captured (check console). Integrate backend POST as required.');
+    });
+  </script>
+</body>
+</html>
