@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Balfour Beatty - Notifications</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="top-bar">
+    <div class="top-left">
+      <button id="menuBtn" class="menu-btn" title="Toggle sidebar">☰</button>
+      <span id="greeting">BALFOUR BEATTY</span>
+    </div>
+  </div>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="profile-section">
+      <div class="profile-pic"><img id="profilePic" src="https://via.placeholder.com/80" alt="User"></div>
+      <div class="profile-name" id="profileName">Guest</div>
+      <div class="profile-role" id="profileRole">Visitor</div>
+    </div>
+    <nav class="sidebar-buttons" aria-label="Primary">
+      <a id="navDashboard" class="btn" href="dashboard.html"><span class="icon">⌂</span><span class="label">Dashboard</span></a>
+      <a id="navResponse" class="btn" href="responses.html"><span class="icon">↩</span><span class="label">Responses</span></a>
+      <a id="navNotification" class="btn" href="notifications.html"><span class="icon">N</span><span class="label">Notification</span></a>
+      <a id="navTicket" class="btn" href="tickets.html"><span class="icon">⊡</span><span class="label">Tickets</span></a>
+      <button id="sidebarLoginLogoutBtn" class="btn bottom-btn"><span class="icon">↪</span><span class="label">Log out</span></button>
+    </nav>
+  </aside>
+
+  <main class="main" id="mainContent">
+    <div class="tickets-container" id="notificationsPage">
+      <div class="tickets-header">
+        <div class="tickets-title-wrap">
+          <div class="tickets-title">Notifications</div>
+          <div class="tickets-subtitle">Stay updated with your latest notifications</div>
+        </div>
+        <div class="tickets-controls">
+          <button id="markAllReadBtn" class="btn">Mark All as Read</button>
+        </div>
+      </div>
+
+      <div id="notificationsEmpty" class="tickets-empty" style="display:none">
+        <div class="icon">🔔</div>
+        <strong>No notifications yet.</strong>
+        You're all caught up!
+      </div>
+
+      <div id="notificationsList" class="notifications-list"></div>
+    </div>
+  </main>
+
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <script src="common.js"></script>
+  <script src="notifications.js"></script>
+  <script>
+    if (typeof renderNotifications === 'function') renderNotifications();
+  </script>
+</body>
+</html>
+
+

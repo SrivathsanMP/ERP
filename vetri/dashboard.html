@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Balfour Beatty - Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="top-bar">
+    <div class="top-left">
+      <button id="menuBtn" class="menu-btn" title="Toggle sidebar">☰</button>
+      <span id="greeting">BALFOUR BEATTY</span>
+    </div>
+  </div>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="profile-section">
+      <div class="profile-pic"><img id="profilePic" src="https://via.placeholder.com/80" alt="User"></div>
+      <div class="profile-name" id="profileName">Guest</div>
+      <div class="profile-role" id="profileRole">Visitor</div>
+    </div>
+    <nav class="sidebar-buttons" aria-label="Primary">
+      <a id="navDashboard" class="btn" href="dashboard.html"><span class="icon">⌂</span><span class="label">Dashboard</span></a>
+      <a id="navResponse" class="btn" href="responses.html"><span class="icon">↩</span><span class="label">Responses</span></a>
+      <a id="navNotification" class="btn" href="notifications.html"><span class="icon">N</span><span class="label">Notification</span></a>
+      <a id="navTicket" class="btn" href="tickets.html"><span class="icon">⊡</span><span class="label">Tickets</span></a>
+      <button id="sidebarLoginLogoutBtn" class="btn bottom-btn"><span class="icon">↪</span><span class="label">Log out</span></button>
+    </nav>
+  </aside>
+
+  <main class="main" id="mainContent">
+    <div class="dashboard-container">
+      <div class="welcome-section">
+        <h1 class="page-title">Dashboard</h1>
+        <p class="welcome-text">Welcome to your dashboard. Use the + button to create a new project request.</p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-title">Active Projects</div>
+          <div class="stat-value">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-title">Pending Responses</div>
+          <div class="stat-value">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-title">New Notifications</div>
+          <div class="stat-value">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-title">Open Tickets</div>
+          <div class="stat-value">0</div>
+        </div>
+      </div>
+
+      <div class="recent-activity">
+        <h2 class="section-title">Recent Activity</h2>
+        <ul class="activity-list">
+          <li class="activity-item">
+            <div class="activity-icon"></div>
+            <div class="activity-content">
+              <div class="activity-title"></div>
+              <div class="activity-time"></div>
+            </div>
+          </li>
+          <li class="activity-item">
+            <div class="activity-icon"></div>
+            <div class="activity-content">
+              <div class="activity-title"></div>
+              <div class="activity-time"></div>
+            </div>
+          </li>
+          <li class="activity-item">
+            <div class="activity-icon"></div>
+            <div class="activity-content">
+              <div class="activity-title"></div>
+              <div class="activity-time"></div>
+            </div>
+          </li>
+          <li class="activity-item">
+            <div class="activity-icon"></div>
+            <div class="activity-content">
+              <div class="activity-title"></div>
+              <div class="activity-time"></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <a class="create-request-btn" title="Create new project request" href="responses.html">+</a>
+  </main>
+
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <script src="common.js"></script>
+</body>
+</html>
+
+

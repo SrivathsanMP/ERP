@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Balfour Beatty - Responses</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="top-bar">
+    <div class="top-left">
+      <button id="menuBtn" class="menu-btn" title="Toggle sidebar">☰</button>
+      <span id="greeting">BALFOUR BEATTY</span>
+    </div>
+  </div>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="profile-section">
+      <div class="profile-pic"><img id="profilePic" src="https://via.placeholder.com/80" alt="User"></div>
+      <div class="profile-name" id="profileName">Guest</div>
+      <div class="profile-role" id="profileRole">Visitor</div>
+    </div>
+    <nav class="sidebar-buttons" aria-label="Primary">
+      <a id="navDashboard" class="btn" href="dashboard.html"><span class="icon">⌂</span><span class="label">Dashboard</span></a>
+      <a id="navResponse" class="btn" href="responses.html"><span class="icon">↩</span><span class="label">Responses</span></a>
+      <a id="navNotification" class="btn" href="notifications.html"><span class="icon">N</span><span class="label">Notification</span></a>
+      <a id="navTicket" class="btn" href="tickets.html"><span class="icon">⊡</span><span class="label">Tickets</span></a>
+      <button id="sidebarLoginLogoutBtn" class="btn bottom-btn"><span class="icon">↪</span><span class="label">Log out</span></button>
+    </nav>
+  </aside>
+
+  <main class="main" id="mainContent">
+    <div class="tickets-container" id="requestsPage">
+      <div class="tickets-header">
+        <div class="tickets-title-wrap">
+          <div class="tickets-title">Project Requests</div>
+          <div class="tickets-subtitle">View and manage your project requests</div>
+        </div>
+        <div class="tickets-controls">
+          <button id="newRequestBtn" class="btn"><span class="plus">+</span>New Request</button>
+        </div>
+      </div>
+
+      <div id="requestsEmpty" class="tickets-empty" style="display:none">
+        <div class="icon">📋</div>
+        <strong>No requests yet.</strong>
+        Create your first project request.
+      </div>
+
+      <table class="tickets-table" id="requestsTable">
+        <thead>
+          <tr>
+            <th>Project Name</th>
+            <th>Project Number</th>
+            <th>TW Ref</th>
+            <th>Revision</th>
+            <th>Location</th>
+            <th>Client</th>
+            <th>Sector</th>
+            <th>Task Code</th>
+            <th>BB Manager</th>
+            <th>Site Contact</th>
+            <th>Status</th>
+            <th>Created</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="requestsTbody"></tbody>
+      </table>
+    </div>
+
+    <button class="create-request-btn" id="fabCreateRequest" title="Create new project request">+</button>
+
+    <div id="projectModal" class="modal-overlay" aria-hidden="true">
+      <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <button class="modal-close" id="modalClose" aria-label="Close">×</button>
+        <h2 id="modalTitle">Project Request Form</h2>
+        <form id="projectForm">
+          <div class="form-grid">
+            <div class="col">
+              <label>Project Name<input name="projectName" type="text" placeholder="" required /></label>
+              <label>Project Number<input name="projectNumber" type="text" required /></label>
+              <label>TW Ref Reg No<input name="twRef" type="text" required /></label>
+              <label>Revision<input name="revision" type="text" required /></label>
+              <label>Location<input name="location" type="text" required /></label>
+              <label>Management Class
+                <div class="radio-row">
+                  <label><input type="radio" name="mgmtClass" value="0" checked> 0</label>
+                  <label><input type="radio" name="mgmtClass" value="1"> 1</label>
+                  <label><input type="radio" name="mgmtClass" value="2"> 2</label>
+                  <label><input type="radio" name="mgmtClass" value="3"> 3</label>
+                </div>
+              </label>
+              <label>Client<input name="client" type="text" required /></label>
+              <label>Sector<input name="sector" type="text" required /></label>
+              <label>Task Code<input name="taskCode" type="text" required /></label>
+              <label>BB Project Manager<input name="bbManager" type="text" required /></label>
+              <label>Site Contact Name<input name="siteContactName" type="text" required /></label>
+              <label>Site Contact Tel<input name="siteContactTel" type="text" required /></label>
+            </div>
+            <div class="col">
+              <label>Purpose<textarea name="purpose" rows="4" placeholder="Describe the purpose..." required></textarea></label>
+              <label>Scope<textarea name="scope" rows="4" placeholder="Describe the scope..." required></textarea></label>
+              <label>Deliverables<textarea name="deliverables" rows="4" placeholder="List expected deliverables..." required></textarea></label>
+              <label>Document Upload<input name="documents" id="documents" type="file" multiple accept="/" required /></label>
+            </div>
+          </div>
+          <div class="modal-actions">
+            <button type="button" class="btn-secondary" id="modalCancel">Cancel</button>
+            <button type="submit" class="btn-primary">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script src="common.js"></script>
+  <script src="responses.js"></script>
+</body>
+</html>
+
+

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Balfour Beatty - Tickets</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="top-bar">
+    <div class="top-left">
+      <button id="menuBtn" class="menu-btn" title="Toggle sidebar">☰</button>
+      <span id="greeting">BALFOUR BEATTY</span>
+    </div>
+  </div>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="profile-section">
+      <div class="profile-pic"><img id="profilePic" src="https://via.placeholder.com/80" alt="User"></div>
+      <div class="profile-name" id="profileName">Guest</div>
+      <div class="profile-role" id="profileRole">Visitor</div>
+    </div>
+    <nav class="sidebar-buttons" aria-label="Primary">
+      <a id="navDashboard" class="btn" href="dashboard.html"><span class="icon">⌂</span><span class="label">Dashboard</span></a>
+      <a id="navResponse" class="btn" href="responses.html"><span class="icon">↩</span><span class="label">Responses</span></a>
+      <a id="navNotification" class="btn" href="notifications.html"><span class="icon">N</span><span class="label">Notification</span></a>
+      <a id="navTicket" class="btn" href="tickets.html"><span class="icon">⊡</span><span class="label">Tickets</span></a>
+      <button id="sidebarLoginLogoutBtn" class="btn bottom-btn"><span class="icon">↪</span><span class="label">Log out</span></button>
+    </nav>
+  </aside>
+
+  <main class="main" id="mainContent">
+    <div class="tickets-container" id="ticketsPage">
+      <div class="tickets-header">
+        <div class="tickets-title-wrap">
+          <div class="tickets-title">Support Tickets</div>
+          <div class="tickets-subtitle">Create and manage your support tickets</div>
+        </div>
+        <div class="tickets-controls">
+          <button id="newTicketBtn" class="btn"><span class="plus">+</span>New Ticket</button>
+        </div>
+      </div>
+
+      <div id="ticketsEmpty" class="tickets-empty" style="display:none">
+        <div class="icon">🎟</div>
+        <strong>No tickets yet.</strong>
+        Create your first support ticket.
+      </div>
+
+      <table class="tickets-table" id="ticketsTable">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Status</th>
+            <th>Priority</th>
+            <th>Created</th>
+            <th>Updated</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="ticketsTbody"></tbody>
+      </table>
+    </div>
+
+    <div id="ticketModal" class="modal-overlay" aria-hidden="true">
+      <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="ticketModalTitle">
+        <button class="modal-close" id="ticketModalClose" aria-label="Close">×</button>
+        <h2 id="ticketModalTitle">Create Support Ticket</h2>
+        <p style="margin:0 24px 10px; color:#6b7280">Submit a new support ticket. Our team will respond as soon as possible.</p>
+        <form id="ticketForm">
+          <div class="form-grid">
+            <div class="col">
+              <label>Title<input name="title" id="ticketTitle" type="text" placeholder="Brief description of the issue" required /></label>
+              <label>Priority
+                <select name="priority" id="ticketPriority" required>
+                  <option value="low">Low</option>
+                  <option value="medium" selected>Medium</option>
+                  <option value="high">High</option>
+                </select>
+              </label>
+            </div>
+            <div class="col">
+              <label>Description<textarea name="description" id="ticketDescription" rows="4" placeholder="Detailed description of your issue" required></textarea></label>
+              <label>Category<input name="category" id="ticketCategory" type="text" placeholder="e.g., Technical, Billing" /></label>
+            </div>
+          </div>
+          <div class="modal-actions">
+            <button type="button" class="btn-secondary" id="ticketModalCancel">Cancel</button>
+            <button type="submit" class="btn-primary">Create Ticket</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <script src="common.js"></script>
+  <script src="tickets.js"></script>
+  <script>
+    // Render on load
+    if (typeof renderTickets === 'function') renderTickets();
+  </script>
+</body>
+</html>
+
+
